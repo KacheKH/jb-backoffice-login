@@ -1,0 +1,26 @@
+{
+	"name"			: "jb-backoffice-login"
+	, "version"		: "0.0.1"
+	, "main"		: "src/jb-backoffice-login-component.js"
+	, "dependencies": {
+		"angular"	: ">=1.4.0"
+		, "angular-translate"	: "2.7.x"
+		, "bootstrap": "3.3.x"
+	}
+	, "ignore"		: [
+		"tests"
+		, "js"
+	]
+	, "license"		: "MIT"
+	, "authors"		: [
+		{ 
+			"name"			: "Felix Steiner"
+			, "email"		: "felix@joinbox.com"
+			, "homepage"	: "http://joinbox.com" 
+		}
+	]
+	, "repository"	: {
+		"type"		: "git"
+		, "url"		: "git://github.com/joinbox/jb-backoffice-login-component.git"
+	}
+}
