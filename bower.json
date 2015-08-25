@@ -1,6 +1,6 @@
 {
 	"name"			: "jb-backoffice-login"
-	, "version"		: "0.0.1"
+	, "version"		: "0.0.2"
 	, "main"		: "src/jb-backoffice-login-component.js"
 	, "dependencies": {
 		"angular"	: ">=1.4.0"

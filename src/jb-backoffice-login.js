@@ -6,6 +6,7 @@
 	'use strict';
 
 	angular
+	
 
 	.module( 'jb.backofficeLogin', [ 'jb.user' ] )
 
