@@ -8,7 +8,7 @@
 	angular
 	
 
-	.module( 'jb.backofficeLogin', [ 'jb.user' ] )
+	.module( 'jb.backofficeLogin', [ 'jb.user', 'jb.session' ] )
 
 	/**
 	* <input data-backoffice-image-component 
@@ -27,14 +27,16 @@
 			, templateUrl		: 'backofficeLoginComponentTemplate.html'
 			, scope: {
 				// Function that is called after successful login
-				'afterLoginCallback'	: '&'
+				'afterLoginCallback'		: '&'
+				// Where to get the current app's languages from. Needed to display locale component.
+				, 'languageEndpoint'		: '@'
 			}
 
 		};
 
 	} ] )
 
-	.controller( 'BackofficeLoginComponentController', [ '$scope', '$location', 'UserService', function( $scope, $location, UserService ) {
+	.controller( 'BackofficeLoginComponentController', [ '$scope', '$state', '$q', 'UserService', 'SessionService', 'APIWrapperService', function( $scope, $state, $q, UserService, SessionService, APIWrapperService ) {
 
 		var self = this
 			, _element;
@@ -57,11 +59,39 @@
 			
 			UserService
 				.login( self.userName, self.password )
+				.then( self.getAppLanguages() )
 				.then( function() {
-					$location.path( '/' );
+					$state.go( 'app' );
 				}, function( err ) {
 					self.status = err;
 				} );
+
+		};
+
+		self.getAppLanguages = function() {
+
+			if( !self.languageEndpoint ) {
+				console.warn( 'BackofficeLoginComponentController: langugaeEndpoint not set' );
+				var deferred = $q.defer();
+				deferred.resolve();
+				return deferred.promise;
+			}
+
+			return APIWrapperService.request( {
+				method			: 'GET'
+				, url			: self.languageEndpoint
+				, headers		: {
+					select		: '*,language.*'
+				}
+			} )
+			.then( function( data ) {
+				console.log( 'BackofficeLoginComponentController: Set supported-languages to %o', data );
+				SessionService.set( 'supported-languages', data, 'local' );
+				return true;
+			}, function( err ) {
+				console.error( 'BackofficeLoginComponentController: %o', err );
+				return $q.reject( err );
+			} );
 
 		};
 

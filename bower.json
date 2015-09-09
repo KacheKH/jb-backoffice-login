@@ -1,6 +1,6 @@
 {
 	"name"			: "jb-backoffice-login"
-	, "version"		: "0.0.3"
+	, "version"		: "0.0.4"
 	, "main"		: [
 		"dist/js/jb-backoffice-login.js"
 		, "dist/css/jb-backoffice-login.css"
@@ -8,7 +8,9 @@
 	, "dependencies": {
 		"angular"					: ">=1.4.0"
 		, "angular-translate"		: "2.7.x"
-		, "bootstrap"				: "3.3.x"
+	}
+	, "devDependencies": {
+		"bootstrap"				: "3.3.x"
 	}
 	, "ignore"		: [
 		"tests"
