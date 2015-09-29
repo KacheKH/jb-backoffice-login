@@ -59,9 +59,17 @@
 			
 			UserService
 				.login( self.userName, self.password )
+				.then( function() {
+
+					APIWrapperService.setDefaultHeader( 'Authorization', 'ee-simple ' + SessionService.get( 'accessToken' ) );
+					return true;
+
+				} )
 				.then( self.getAppLanguages() )
 				.then( function() {
-					$state.go( 'app' );
+
+					$state.go( '/' );
+
 				}, function( err ) {
 					self.status = err;
 				} );
@@ -78,10 +86,10 @@
 			}
 
 			return APIWrapperService.request( {
-				method			: 'GET'
-				, url			: self.languageEndpoint
-				, headers		: {
-					select		: '*,language.*'
+				method				: 'GET'
+				, url				: self.languageEndpoint
+				, headers			: {
+					select			: '*,language.*'
 				}
 			} )
 			.then( function( data ) {
