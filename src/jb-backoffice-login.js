@@ -65,7 +65,7 @@
 					return true;
 
 				} )
-				.then( self.getAppLanguages() )
+				.then( self.getAppLanguages )
 				.then( function() {
 
 					$state.go( '/' );
